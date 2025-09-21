@@ -5,8 +5,10 @@ After=network.target
 [Service]
 Type=simple
 User=root
+# This path will be automatically replaced by start.sh
 WorkingDirectory=/path/to/druzhische-bot
-ExecStart=/usr/bin/python3 app.py
+# This path will be automatically replaced by start.sh
+ExecStart=/path/to/druzhische-bot/venv/bin/python app.py
 Restart=on-failure
 RestartSec=10
 

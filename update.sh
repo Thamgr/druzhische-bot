@@ -6,7 +6,9 @@ git pull
 # Update dependencies in the virtual environment
 if [ -d "venv" ]; then
     echo "Updating dependencies..."
-    ./venv/bin/pip install -r requirements.txt
+    source venv/bin/activate
+    pip install -r requirements.txt
+    deactivate
 fi
 
 # Restart the service
