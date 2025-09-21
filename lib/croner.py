@@ -1,8 +1,18 @@
 import time
 import yaml
 import croniter
+import logging
 from datetime import datetime
 from lib.broadcaster import Broadcaster
+
+# Configure logging
+logging.basicConfig(
+    filename='run.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+logger = logging.getLogger('croner.py')
 
 class Scheduler:
     def __init__(self, config_path='config.yml'):
@@ -30,21 +40,31 @@ class Scheduler:
     
     def run(self):
         print("Starting scheduler...")
+        logger.info("Starting scheduler...")
         
         while True:
             try:
                 config = self.load_config()
+                logger.info(f"Loaded configuration with {len(config.get('broadcasts', []))} broadcasts")
                 
                 for broadcast in config.get('broadcasts', []):
+                    broadcast_id = broadcast.get('id')
+                    logger.info(f"Processing broadcast: {broadcast_id}")
+                    
                     cron_data = self.get_or_create_cron(broadcast)
                     should_run = self.broadcaster.process(broadcast, cron_data)
                     
                     if should_run:
+                        logger.info(f"Broadcast {broadcast_id} was sent")
                         cron_data['last_run'] = datetime.now()
+                    else:
+                        logger.info(f"Broadcast {broadcast_id} was skipped (not scheduled to run)")
                 
                 # Sleep for a minute before checking again
                 time.sleep(60)
                 
             except Exception as e:
-                print(f"Error in scheduler loop: {e}")
+                error_msg = f"Error in scheduler loop: {e}"
+                print(error_msg)
+                logger.error(error_msg)
                 time.sleep(60)  # Sleep and try again

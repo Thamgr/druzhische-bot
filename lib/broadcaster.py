@@ -1,6 +1,10 @@
 import importlib
+import logging
 from datetime import datetime
 from lib.sender import Sender
+
+# Get logger
+logger = logging.getLogger('broadcaster.py')
 
 class Broadcaster:
     def __init__(self):
@@ -40,6 +44,8 @@ class Broadcaster:
                 
                 if message and chat_id:
                     print(f"Broadcasting message {broadcast['id']} to chat {chat_id}")
+                    logger.info(f"Broadcasting message {broadcast['id']} to chat {chat_id}")
+                    logger.info(f"Message content: {message[:100]}{'...' if len(message) > 100 else ''}")
                     self.sender.send(chat_id, message)
                     return True
         

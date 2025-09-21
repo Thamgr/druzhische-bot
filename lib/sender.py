@@ -1,4 +1,13 @@
+import os
 import requests
+import logging
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get logger
+logger = logging.getLogger('sender.py')
 
 class Sender:
     _instance = None
@@ -6,7 +15,8 @@ class Sender:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(Sender, cls).__new__(cls)
-            cls._instance.token = "YOUR_BOT_TOKEN"  # Replace with actual token
+            # Get token from environment variable
+            cls._instance.token = os.getenv("BOT_TOKEN")
         return cls._instance
     
     def send(self, chat_id, text):
@@ -17,7 +27,11 @@ class Sender:
         }
         try:
             response = requests.post(url, data=data)
-            return response.json()
+            result = response.json()
+            logger.info(f"Message sent to chat {chat_id}, response: {result}")
+            return result
         except Exception as e:
-            print(f"Error sending message: {e}")
+            error_msg = f"Error sending message: {e}"
+            print(error_msg)
+            logger.error(error_msg)
             return None
