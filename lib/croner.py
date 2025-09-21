@@ -56,9 +56,9 @@ class Scheduler:
                     
                     if should_run:
                         logger.info(f"Broadcast {broadcast_id} was sent")
-                        cron_data['last_run'] = datetime.now()
                     else:
                         logger.info(f"Broadcast {broadcast_id} was skipped (not scheduled to run)")
+                    cron_data['last_run'] = datetime.now()
                 
                 # Sleep for a minute before checking again
                 time.sleep(60)

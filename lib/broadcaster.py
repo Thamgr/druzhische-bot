@@ -19,13 +19,9 @@ class Broadcaster:
         return now >= next_time
     
     def get_module(self, module_name):
-        try:
-            module_path = f"lib.modules.{module_name.lower()}"
-            module = importlib.import_module(module_path)
-            return getattr(module, module_name)()
-        except (ImportError, AttributeError) as e:
-            print(f"Error loading module {module_name}: {e}")
-            return None
+        module_path = f"lib.modules.{module_name.lower()}"
+        module = importlib.import_module(module_path)
+        return getattr(module, module_name)()
     
     def process(self, broadcast, cron_data):
         if self.should_broadcast(broadcast, cron_data):
