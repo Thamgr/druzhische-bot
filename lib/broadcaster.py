@@ -15,12 +15,6 @@ class Broadcaster:
         cron = cron_data['cron']
         last_run = cron_data['last_run']
         
-        # If we've never sent this broadcast before
-        if last_run is None:
-            next_time = cron.get_prev(datetime)
-            # Check if the next time is within the last hour (to avoid immediate sending on startup)
-            return (now - next_time).total_seconds() < 3600
-        
         next_time = cron.get_next(datetime, start_time=last_run)
         return now >= next_time
     
