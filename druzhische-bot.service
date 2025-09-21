@@ -8,7 +8,7 @@ User=root
 # This path will be automatically replaced by start.sh
 WorkingDirectory=/path/to/druzhische-bot
 # This path will be automatically replaced by start.sh
-ExecStart=/path/to/druzhische-bot/venv/bin/python app.py
+ExecStart=/path/to/druzhische-bot/venv/bin/python3 app.py
 Restart=on-failure
 RestartSec=10
 

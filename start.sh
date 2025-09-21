@@ -12,7 +12,7 @@ fi
 # Activate virtual environment and install dependencies
 echo "Installing dependencies..."
 source venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 deactivate
 
 # Check if service file exists in systemd
