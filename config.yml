@@ -1,0 +1,6 @@
+broadcasts:
+  - id: 1
+    schedule: "*/1 * * * *"
+    module: "SimpleText"
+    text: "Чисто потестить.\nЧисто потестить.\nЧисто потестить.\nЧисто потестить."
+    chat_id: 4648437933

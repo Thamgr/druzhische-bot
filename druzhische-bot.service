@@ -1,0 +1,14 @@
+[Unit]
+Description=Druzhische Telegram Bot Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/path/to/druzhische-bot
+ExecStart=/usr/bin/python3 app.py
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
