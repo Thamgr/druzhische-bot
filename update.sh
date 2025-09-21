@@ -7,7 +7,7 @@ git pull
 if [ -d "venv" ]; then
     echo "Updating dependencies..."
     source venv/bin/activate
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
     deactivate
 fi
 

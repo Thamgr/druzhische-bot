@@ -6,9 +6,9 @@ After=network.target
 Type=simple
 User=root
 # This path will be automatically replaced by start.sh
-WorkingDirectory=/path/to/druzhische-bot
+WorkingDirectory=/Users/thamgr/Documents/GitHub/druzhische-bot
 # This path will be automatically replaced by start.sh
-ExecStart=/path/to/druzhische-bot/venv/bin/python3 app.py
+ExecStart=/Users/thamgr/Documents/GitHub/druzhische-bot/venv/bin/python app.py
 Restart=on-failure
 RestartSec=10
 

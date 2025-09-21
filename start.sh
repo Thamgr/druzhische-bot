@@ -6,7 +6,7 @@ PROJECT_DIR=$(pwd)
 # Create virtual environment if it doesn't exist
 if [ ! -d "venv" ]; then
     echo "Creating virtual environment..."
-    python3 -m venv venv
+    sudo python3 -m venv venv
 fi
 
 # Activate virtual environment and install dependencies
