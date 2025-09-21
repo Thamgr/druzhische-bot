@@ -28,13 +28,19 @@ class Scheduler:
         broadcast_id = broadcast['id']
         schedule = broadcast['schedule']
         
+        logger.info(f"Getting cron for broadcast {broadcast_id} with schedule: {schedule}")
+        
         if broadcast_id not in self.crons:
+            logger.info(f"Creating new cron for broadcast {broadcast_id}")
             now = datetime.now()
             cron = croniter.croniter(schedule, now)
             self.crons[broadcast_id] = {
                 'cron': cron,
                 'last_run': None
             }
+            logger.info(f"New cron created for broadcast {broadcast_id}")
+        else:
+            logger.info(f"Using existing cron for broadcast {broadcast_id}")
         
         return self.crons[broadcast_id]
     
@@ -52,12 +58,7 @@ class Scheduler:
                     logger.info(f"Processing broadcast: {broadcast_id}")
                     
                     cron_data = self.get_or_create_cron(broadcast)
-                    should_run = self.broadcaster.process(broadcast, cron_data)
-                    
-                    if should_run:
-                        logger.info(f"Broadcast {broadcast_id} was sent")
-                    else:
-                        logger.info(f"Broadcast {broadcast_id} was skipped (not scheduled to run)")
+                    self.broadcaster.process(broadcast, cron_data)
                     cron_data['last_run'] = datetime.now()
                 
                 # Sleep for a minute before checking again
