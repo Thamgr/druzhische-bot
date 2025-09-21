@@ -25,7 +25,7 @@ class Broadcaster:
     
     def get_module(self, module_name):
         logger.info(f"Loading module: {module_name}")
-        module_path = f"lib.modules.{module_name.lower()}"
+        module_path = f"lib.modules.{module_name}"
         logger.info(f"Module path: {module_path}")
         module = importlib.import_module(module_path)
         instance = getattr(module, module_name)()
