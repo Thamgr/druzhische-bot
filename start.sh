@@ -13,7 +13,6 @@ fi
 echo "Installing dependencies..."
 source venv/bin/activate
 pip3 install -r requirements.txt
-deactivate
 
 # Check if service file exists in systemd
 if [ ! -f "/etc/systemd/system/druzhische-bot.service" ]; then
