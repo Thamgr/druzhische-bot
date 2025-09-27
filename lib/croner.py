@@ -39,8 +39,6 @@ class Scheduler:
                 'last_run': None
             }
             logger.info(f"New cron created for broadcast {broadcast_id}")
-        else:
-            logger.info(f"Using existing cron for broadcast {broadcast_id}")
         
         return self.crons[broadcast_id]
     

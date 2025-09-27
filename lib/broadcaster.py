@@ -24,7 +24,6 @@ class Broadcaster:
         return should_run
     
     def get_module(self, module_name):
-        logger.info(f"Loading module: {module_name}")
         module_path = f"lib.modules.{module_name}"
         logger.info(f"Module path: {module_path}")
         module = importlib.import_module(module_path)
@@ -32,13 +31,12 @@ class Broadcaster:
         return instance
     
     def process(self, broadcast, cron_data):
-        if self.should_broadcast(broadcast, cron_data):
-            module_name = broadcast.get('module')
-            module = self.get_module(module_name)
+        if not self.should_broadcast(broadcast, cron_data):
+            return
+        module_name = broadcast.get('module')
+        module = self.get_module(module_name)
 
-            message = module.render(broadcast)
-            chat_id = broadcast.get('chat_id')
-            print(f"Broadcasting message {broadcast['id']} to chat {chat_id}")
-            logger.info(f"Broadcasting message {broadcast['id']} to chat {chat_id}")
-            logger.info(f"Message content: {message[:100]}{'...' if len(message) > 100 else ''}")
-            self.sender.send(chat_id, message)
+        message = module.render(broadcast)
+        chat_id = broadcast.get('chat_id')
+        logger.info(f"Broadcasting message {broadcast['id']} to chat {chat_id}")
+        self.sender.send(chat_id, message)
