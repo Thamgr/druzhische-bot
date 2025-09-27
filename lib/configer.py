@@ -96,8 +96,6 @@ class Configer:
     
     def _process_config_data(self, config_data: Dict[str, Any]) -> None:
         self._configs = []
-        
-        # Process broadcasts if they exist
         if 'broadcasts' in config_data and isinstance(config_data['broadcasts'], list):
             for broadcast_dict in config_data['broadcasts']:
                 self._configs.append(Config(broadcast_dict))
